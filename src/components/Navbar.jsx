@@ -3,18 +3,18 @@ import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {
   return (
-    <nav className='navbar navbar-dark bg-dark'>
-      <div className='container'>
-        <NavLink to='/' className='btn btn-outline-primary'>
-          Home
+    <nav className='navegador'>
+      <div className='nav-menu'>
+        <NavLink to='/' className='nav-link'>
+          <img className='logo' src="/apex-legends-logo-2.png" alt="" />
         </NavLink>
-        <NavLink to='/characters' className='btn btn-outline-primary'>
+        <NavLink to='/characters' className='nav-link'>
           Characters
         </NavLink>
-        <NavLink to='/profile' className='btn btn-outline-primary'>
+        <NavLink to='/profile' className='nav-link'>
           Profile
         </NavLink>
-        <NavLink to= '/register' className='btn btn-outline-primary'>
+        <NavLink to= '/register' className='nav-link'>
           Register
         </NavLink>
     </div>
