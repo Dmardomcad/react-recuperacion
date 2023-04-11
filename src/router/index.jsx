@@ -43,7 +43,14 @@ export const router = createBrowserRouter([
                 element: <Login />,
                 errorElement: <NotFound />,
             },
+            {
+                path: "/contact",
+                element: <Contact/>,
+                errorElement: <NotFound/>,
+            },
+            {
+                path: "/"
+            }
         ]    
     },
-
 ])

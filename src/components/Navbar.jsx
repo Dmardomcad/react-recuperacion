@@ -15,7 +15,7 @@ const Navbar = () => {
           Profile
         </NavLink>
         <NavLink to= '/register' className='nav-link'>
-          Register
+          <button className='btn-registro'>Register</button>
         </NavLink>
     </div>
   </nav>
