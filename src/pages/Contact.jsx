@@ -3,9 +3,9 @@ import React from 'react'
 const Contact = () => {
   return (
     <>
-      <section>
+      <section className='contacto'>
         <h3>CONTACTE CON NOSOTROS</h3>
-        <form>
+        <form className='formulario-contacto'>
           <ul>
             <li>
               <label htmlFor="nombre">Nombre: </label>
