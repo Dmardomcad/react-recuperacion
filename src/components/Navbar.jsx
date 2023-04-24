@@ -8,6 +8,9 @@ const Navbar = () => {
         <NavLink to='/' className='nav-link'>
           <img className='logo' src="/apex-legends-logo-2.png" alt="" />
         </NavLink>
+        <NavLink to='/' className='nav-link'>
+          Home
+        </NavLink>
         <NavLink to='/characters' className='nav-link'>
           Characters
         </NavLink>
