@@ -1,26 +1,22 @@
-import React,{useEffect, useState} from 'react'
-import { fetchCharacters } from '../helpers/useApi'
-import CharacterList from '../components/CharacterList'
-
-
+import React, { useEffect, useState } from "react";
+import { fetchCharacters } from "../helpers/useApi";
+import CharacterList from "../components/CharacterList";
 
 const Characters = () => {
-  
-  
-  const [characters, setCharacters] = useState([])
+  const [characters, setCharacters] = useState([]);
 
-  useEffect(()=>{
-    fetchCharacters(setCharacters)
-  },[])
+  useEffect(() => {
+    fetchCharacters(setCharacters);
+  }, []);
 
-  console.log(characters.data)
+  console.log(characters.data);
 
   return (
     <>
-      <h3 className='listado-personajes'>LOS PERSONAJES DE VALORANT</h3>
-      <CharacterList/>
+      <h3 className="listado-personajes">LOS PERSONAJES DE VALORANT</h3>
+      <CharacterList />
     </>
-  )
-}
+  );
+};
 
-export default Characters
+export default Characters;

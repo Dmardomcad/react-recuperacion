@@ -26,7 +26,7 @@ const CharacterList = () => {
           ))
         ) : (
           <div>
-            <Spinner/>
+            <Spinner />
           </div>
         )}
       </section>
