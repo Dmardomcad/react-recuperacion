@@ -7,6 +7,7 @@ import Contact from "../pages/Contact";
 import Register from "../pages/Register";
 import NotFound from "../pages/NotFound";
 import LayoutPublic from "../layouts/LayoutPublic";
+import CharacterCard from "../components/CharacterCard";
 
 export const router = createBrowserRouter([
     {
@@ -27,6 +28,11 @@ export const router = createBrowserRouter([
                 path: "/characters",
                 element: <Characters />,
                 errorElement: <NotFound />,    
+            },
+            {
+                path: "/characters/:uuid",
+                element: <CharacterCard/>,
+                errorElement: <NotFound/>,
             },
             {
                 path: "/contact",

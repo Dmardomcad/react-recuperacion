@@ -33,6 +33,7 @@ const RegisterLoginForm = () => {
           {errors.username && (
             <p className="error">{errors.username.message}</p>
           )}
+
           <label htmlFor="Nickname">Nickname: </label>
           <input
             type="text"
@@ -49,6 +50,7 @@ const RegisterLoginForm = () => {
               pattern: /^\S+@\S+$/i,
             })}
           />
+          
           <label htmlFor="lastname">Last Name:</label>
           <input
             type="text"

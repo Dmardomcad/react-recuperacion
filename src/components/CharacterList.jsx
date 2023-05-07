@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import fetchCharacters from "../helpers/useApi";
 import Spinner from "./Spinner";
+import { Link } from "react-router-dom";
 
 const CharacterList = () => {
   const [characters, setCharacters] = useState([]);
@@ -15,6 +16,7 @@ const CharacterList = () => {
       <section className="personajes">
         {characters.data != null ? (
           characters.data.map((characters) => (
+          <Link to={`/characters/${characters.uuid}`}>
             <article key={characters.uuid} className="personaje">
               <img
                 src={characters.fullPortrait}
@@ -23,6 +25,7 @@ const CharacterList = () => {
               />
               <h4>{characters.displayName}</h4>
             </article>
+          </Link>
           ))
         ) : (
           <div>

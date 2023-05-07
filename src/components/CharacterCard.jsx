@@ -3,8 +3,10 @@ import React from 'react'
 const CharacterCard = () => {
   return (
     <article>
+      CharacterCard
+      <h2></h2>
       <img></img>
-      <h4></h4>
+      <p></p>
     </article>
   )
 }
