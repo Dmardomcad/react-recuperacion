@@ -5,17 +5,22 @@ import Spinner from "./Spinner";
 import { Link } from "react-router-dom";
 
 const CharacterList = () => {
+
+  const url = 'https://valorant-api.com/v1/agents?isPlayableCharacter=true'
+
   const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
-    fetchCharacters(setCharacters);
-  }, []);
+    fetchCharacters(url).then(response=>{
+      setCharacters(response)})
+  }, [])
+  //console.log(characters)
 
   return (
     <>
       <section className="personajes">
-        {characters.data != null ? (
-          characters.data.map((characters) => (
+        {characters != null ? (
+          characters.map((characters) => (
           <Link to={`/characters/${characters.displayName}`}>
             <article key={characters.displayName} className="personaje">
               <img
