@@ -16,8 +16,8 @@ const CharacterList = () => {
       <section className="personajes">
         {characters.data != null ? (
           characters.data.map((characters) => (
-          <Link to={`/characters/${characters.uuid}`}>
-            <article key={characters.uuid} className="personaje">
+          <Link to={`/characters/${characters.displayName}`}>
+            <article key={characters.displayName} className="personaje">
               <img
                 src={characters.fullPortrait}
                 alt="imagen ..."
