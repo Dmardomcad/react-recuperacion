@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Button from "./Button";
 
-const RegisterLoginForm = () => {
+const LoginForm = () => {
   const {
     register,
     handleSubmit,
@@ -13,32 +13,13 @@ const RegisterLoginForm = () => {
 
   return (
     <>
-      <section className="registro">
-        <form className="formulario-registro" onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor="username">Username: </label>
-          <input
-            type="text"
-            placeholder="Username"
-            {...register("username", {
-              required: {
-                value: true,
-                message: "Se debe rellenar el campo",
-              },
-              maxLength: {
-                value: 15,
-                message: "Username debe tener como máximo 15 caracteres",
-              },
-            })}
-          />
-          {errors.username && (
-            <p className="error">{errors.username.message}</p>
-          )}
-
+      <section className="login">
+        <form className="formulario-login" onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="Email">Email: </label>
           <input
             type="text"
             placeholder="Email"
-            {...register("email", {
+            {...login("email", {
               required: {
                 value: true,
                 message: "Se debe rellenar el campo",
@@ -59,32 +40,7 @@ const RegisterLoginForm = () => {
           <input
             type="password"
             placeholder="Password"
-            {...register("password", {
-              required: {
-                value: true,
-                message: "Se debe rellenar el campo",
-              },
-              maxLength: {
-                value: 30,
-                message: "La password puede tener como máximo 25 caracteres.",
-              },
-              minLength: {
-                value: 8,
-                pattern: "^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$",
-                message:
-                  "La password debe tener como mínimo 8 caracteres y al menos una letra y un número.",
-              },
-            })}
-          />
-          {errors.password && (
-            <p className="error">{errors.password.message}</p>
-          )}
-
-          <label htmlFor="repeat-password">Repetir la password: </label>
-          <input
-            type="password"
-            placeholder="Repetir la password"
-            {...register("repeat-password", {
+            {...login("password", {
               required: {
                 value: true,
                 message: "Se debe rellenar el campo",
@@ -122,11 +78,11 @@ const RegisterLoginForm = () => {
             <span>{errors.password.types.required}</span>
           )} */}
 
-          <Button text="Registrarse" />
+          <Button text="Login" />
         </form>
       </section>
     </>
   );
 };
 
-export default RegisterLoginForm;
+export default LoginForm;

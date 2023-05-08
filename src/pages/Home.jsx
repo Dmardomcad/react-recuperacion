@@ -1,18 +1,15 @@
-import React from 'react'
-import News from '../components/News'
-import banner from '../assets/images/banner.png'
+import React from "react";
+import News from "../components/News";
+import banner from "../assets/images/banner.png";
+import NewsCard from "../components/NewsCard";
 
-const Home = () => {
+const Home = (props) => {
   return (
-    <div>
-      <img
-      src={banner} 
-      className='banner'
-      alt="banner de la página"
-      />
-      <News/>
-    </div>
-  )
-}
+    <>
+      <img src={banner} className="banner" alt="banner de la página" />
+      <News />
+    </>
+  );
+};
 
-export default Home
+export default Home;
