@@ -7,8 +7,9 @@ import Contact from "../pages/Contact";
 import Register from "../pages/Register";
 import NotFound from "../pages/NotFound";
 import LayoutPublic from "../layouts/LayoutPublic";
-import CharacterCard from "../components/CharacterCard";
+import CharacterCard from "../components/Character";
 import LoginForm from "../components/LoginForm";
+import Character from '../components/Character';
 
 export const router = createBrowserRouter([
   {
@@ -32,7 +33,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/characters/:displayName",
-        element: <CharacterCard />,
+        element: <Character />,
         errorElement: <NotFound />,
       },
       {

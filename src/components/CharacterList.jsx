@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import fetchCharacters from "../helpers/useApi";
 import Spinner from "./Spinner";
 import { Link } from "react-router-dom";
+import Character from "./Character";
 
 const CharacterList = () => {
   const url = "https://valorant-api.com/v1/agents?isPlayableCharacter=true";
@@ -24,17 +25,16 @@ const CharacterList = () => {
     <>
       <section className="personajes">
         {characters != null ? (
-          characters.map((characters) => (
-            <Link to={`/characters/${characters.displayName}`}>
-              <article key={characters.displayName} className="personaje">
-                <img
-                  src={characters.fullPortrait}
-                  alt="imagen ..."
-                  className="personaje-img"
+          characters.map((character) => (
+            <div key={character.uuid}>
+              <Link to={`/characters/${character.displayName}`}>
+                <Character
+                  key={character.uuid}
+                  fullPortrait={character.fullPortrait}
+                  displayName={character.displayName}
                 />
-                <h4>{characters.displayName}</h4>
-              </article>
-            </Link>
+              </Link>
+            </div>
           ))
         ) : (
           <div>
