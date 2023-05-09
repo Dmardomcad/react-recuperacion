@@ -1,15 +1,12 @@
 import React from "react";
 
-const NewsCard = () => {
+const NewsCard = ({ newsTitle, newsImage, newsText }) => {
   return (
     <>
       <div>
-        <h2>{props.newstitle}</h2>
-        <img
-          src={required(`../images/news/img-${props.image}.png`)}
-          alt={props.alt}
-        ></img>
-        <p>{props.newstext}</p>
+        <h2>{newsTitle}</h2>
+        <img src={required(`../images/news/img-${newsImage}.png`)}></img>
+        <p>{newsText}</p>
       </div>
     </>
   );

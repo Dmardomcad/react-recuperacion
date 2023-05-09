@@ -2,17 +2,25 @@ import React, { useEffect, useState } from "react";
 import CharacterList from "../components/CharacterList";
 
 const Characters = () => {
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState("");
 
+  const [filter, setFilets] = useState("");
   //console.log(characters.data);
 
   return (
     <>
-      <input type="text"
-      placeholder="Search.."
-      className="searchbar"
-      autoFocus
+      <input
+        type="text"
+        placeholder="Search.."
+        className="searchbar"
+        autoFocus
       ></input>
+
+      <select name="roles" id="roles">
+        <option value="Initiator">Initiator</option>
+        <option value="Otra">Otra</option>
+      </select>
+
       <h3 className="listado-personajes">LOS PERSONAJES DE VALORANT</h3>
       <CharacterList />
     </>
