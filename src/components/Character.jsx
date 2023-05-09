@@ -1,14 +1,13 @@
 import React from "react";
 
-const Character = (character) => {
+const Character = ({ fullPortrait, displayName, displayIcon }) => {
   return (
     <article>
-      <img
-        src={character.fullPortrait}
-        alt={character.displayName}
-        className="personaje-img"
-      />
-      <h4>{character.displayName}</h4>
+      <img src={fullPortrait} alt={displayName} className="personaje-img" />
+      <img src={displayIcon} />
+      <h4>{displayName}</h4>
+
+      {console.log(displayIcon)}
     </article>
   );
 };

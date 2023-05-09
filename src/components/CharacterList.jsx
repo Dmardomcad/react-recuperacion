@@ -32,6 +32,7 @@ const CharacterList = () => {
                   key={character.uuid}
                   fullPortrait={character.fullPortrait}
                   displayName={character.displayName}
+                  displayIcon={character.role.displayIcon}
                 />
               </Link>
             </div>
