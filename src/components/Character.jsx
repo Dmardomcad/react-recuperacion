@@ -7,7 +7,6 @@ const Character = ({ fullPortrait, displayName, displayIcon }) => {
       <img src={displayIcon} />
       <h4>{displayName}</h4>
 
-      {console.log(displayIcon)}
     </article>
   );
 };

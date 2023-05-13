@@ -4,15 +4,22 @@ import CharacterList from "../components/CharacterList";
 const Characters = () => {
   const [search, setSearch] = useState("");
 
-  const [filter, setFilets] = useState("");
+  const [filter, setFilters] = useState("");
   //console.log(characters.data);
+
+  const handleChange = (e) => {
+    setSearch(e.target.value)
+    console.log(e.target.value)
+  }
 
   return (
     <>
       <input
         type="text"
-        placeholder="Search.."
+        placeholder="Search character by name"
         className="searchbar"
+        value={search}
+        onChange={handleChange}
         autoFocus
       ></input>
 
@@ -22,7 +29,7 @@ const Characters = () => {
       </select>
 
       <h3 className="listado-personajes">LOS PERSONAJES DE VALORANT</h3>
-      <CharacterList />
+      <CharacterList/>
     </>
   );
 };

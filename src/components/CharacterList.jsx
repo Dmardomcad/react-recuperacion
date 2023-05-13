@@ -26,10 +26,10 @@ const CharacterList = () => {
       <section className="personajes">
         {characters != null ? (
           characters.map((character) => (
-            <div key={character.uuid}>
+            <div key={character.displayName}>
               <Link to={`/characters/${character.displayName}`}>
                 <Character
-                  key={character.uuid}
+                  key={character.displayName}
                   fullPortrait={character.fullPortrait}
                   displayName={character.displayName}
                   displayIcon={character.role.displayIcon}
@@ -43,6 +43,7 @@ const CharacterList = () => {
           </div>
         )}
       </section>
+      {/* {console.log(characters[1].displayName)} */}
     </>
   );
 };
