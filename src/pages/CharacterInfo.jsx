@@ -27,7 +27,7 @@ const CharacterInfo = () => {
   return (
     <>
       <div>CharacterInfo: h</div>
-      <div> descripcion: hi</div>
+      <div> descripcion: {character.description}</div>
       <div>icono: {character.displayName}</div>
     </>
   )
