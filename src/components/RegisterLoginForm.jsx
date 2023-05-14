@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import Button from "./Button";
+import { UserContext } from "../context/UserContext";
 
 const RegisterLoginForm = () => {
   const {
@@ -8,8 +9,16 @@ const RegisterLoginForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  
+  const onSubmit = (data, e) => {
+    e.preventDefault()
+    console.log(data)
+  }
+
   console.log(errors);
+
+  const { user, setUser} = useContext(UserContext)
+  console.log(`saludo desde el login ${useContext(UserContext)}`)
 
   return (
     <>
@@ -122,7 +131,7 @@ const RegisterLoginForm = () => {
             <span>{errors.password.types.required}</span>
           )} */}
 
-          <Button text="Registrarse" />
+          <Button text="Registrarse" onClick={handleSubmit}/>
         </form>
       </section>
     </>

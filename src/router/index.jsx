@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
         errorElement: <NotFound />,
       },
       {
-        path: "/characters/:displayName",
+        path: "/characters/:uuid",
         element: <CharacterInfo />,
         errorElement: <NotFound />,
       },

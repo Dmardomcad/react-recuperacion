@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import UserContext from "../context/userContext";
+import { UserContext } from "../context/UserContext";
 
 const Navbar = () => {
+  console.log(useContext(UserContext))
+  
   return (
     <>
-    {console.log(useContext(UserContext))}
       <nav className="navegador">
         <div className="nav-menu">
           <NavLink to="/" className="nav-link">
