@@ -1,23 +1,50 @@
-import React, { useContext } from "react";
+import React, { Children, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "./Button";
 import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const RegisterLoginForm = () => {
+  const initialValues = {
+    username: '',
+    email: '',
+    password: '',
+    terms: false
+  }
+
+  const { username, setUserName} = useState('')
+
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm( {mode:"onChange"},
+    {defaultValues: initialValues}
+  ); // "onBlur" is another good option
   
+
+
   const onSubmit = (data, e) => {
     e.preventDefault()
-    console.log(data)
+    const { username, email, password, terms } = data
+    window.localStorage.setItem('username', username)
+    window.localStorage.setItem('email', email)
+    window.localStorage.setItem('password', password)
+    window.localStorage.setItem(terms, terms)
+    setUser(true)
+    console.log(JSON.stringify(data))
+    console.log(user)
+    navigate('/profile')
   }
 
   console.log(errors);
 
   const { user, setUser} = useContext(UserContext)
+  const { users, setUsers } = useState([])
+
+  const navigate = useNavigate()
+  // Context testing
   console.log(`saludo desde el login ${useContext(UserContext)}`)
 
   return (
@@ -28,6 +55,9 @@ const RegisterLoginForm = () => {
           <input
             type="text"
             placeholder="Username"
+            name='username'
+            id='username'
+            onChange={e => setUserName(e.target.value)}
             {...register("username", {
               required: {
                 value: true,
@@ -89,29 +119,18 @@ const RegisterLoginForm = () => {
             <p className="error">{errors.password.message}</p>
           )}
 
-          <label htmlFor="repeat-password">Repetir la password: </label>
+          <label htmlFor="terms">Acepto los terminos y condiciones: </label>
           <input
-            type="password"
-            placeholder="Repetir la password"
-            {...register("repeat-password", {
+            type="checkbox"
+            {...register("terms", {
               required: {
                 value: true,
-                message: "Se debe rellenar el campo",
-              },
-              maxLength: {
-                value: 30,
-                message: "La password puede tener como máximo 25 caracteres.",
-              },
-              minLength: {
-                value: 8,
-                pattern: "^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$",
-                message:
-                  "La password debe tener como mínimo 8 caracteres y al menos una letra y un número.",
-              },
+                message: "Se deben aceptar los terminos y condiciones",
+              }
             })}
           />
-          {errors.password && (
-            <p className="error">{errors.password.message}</p>
+          {errors.terms && (
+            <p className="error">{errors.terms.message}</p>
           )}
 
           {/*           <label htmlFor="repeat-password">Repeat Password:</label>
@@ -131,7 +150,7 @@ const RegisterLoginForm = () => {
             <span>{errors.password.types.required}</span>
           )} */}
 
-          <Button text="Registrarse" onClick={handleSubmit}/>
+          <Button text="Registrarse" type='submit'/>
         </form>
       </section>
     </>

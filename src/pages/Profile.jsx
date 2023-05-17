@@ -1,6 +1,17 @@
 import React from "react";
+import Button from "../components/Button";
 
 const Profile = () => {
+
+  let myusername = (localStorage.getItem('username'))
+  let userEmail = (localStorage.getItem('email'))
+
+  const handleLogout = () =>{
+    localStorage.clear()
+  }
+
+  console.log(localStorage.getItem('username'))
+
   return (
     <>
       <section className="perfil-usuario">
@@ -9,31 +20,24 @@ const Profile = () => {
           <img src="/src/assets/img/profile-stock.jpg" alt="placeholder"></img>
           <ul>
             <li>
-              <p>Nickname: Pepeviyuela32</p>
+              <p>Nickname: {myusername}</p>
             </li>
             <li>
-              <p>Género: Masculino</p>
+              <p>Email: {userEmail}</p>
             </li>
             <li>
               <p>Edad: 33</p>
             </li>
             <li>
-              <h5>Datos de interés:</h5>
+              <h5>Personajes Favoritos:</h5>
             </li>
-            <li>
-              <p>
-                Hola, me llamo Pepe, me gusta el surf, los videojuegos y pasarme
-                las tardes programando.
-              </p>
-            </li>
-            <li>
-              <div>
-                favoritos
-              </div>
-            </li>
+            <div>
+              Favoritos placeholder
+            </div>
           </ul>
         </article>
       </section>
+      <Button text='logout' onClick = {handleLogout()}/>
     </>
   );
 };

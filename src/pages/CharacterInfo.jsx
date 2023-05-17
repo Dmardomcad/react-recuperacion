@@ -9,7 +9,7 @@ const CharacterInfo = () => {
 
   let url = `https://valorant-api.com/v1/agents/${uuid}`
 
-  const [ character, setCharacter ] = useState({})
+  const [ character, setCharacter ] = useState([])
   
   console.log(character)
   console.log(character.displayName)
@@ -26,7 +26,7 @@ const CharacterInfo = () => {
   
   return (
     <>
-      <div>CharacterInfo: h</div>
+      <img src={character.fullPortrait} alt="portrait" />
       <div> descripcion: {character.description}</div>
       <div>icono: {character.displayName}</div>
     </>
