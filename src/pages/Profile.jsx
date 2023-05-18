@@ -15,7 +15,7 @@ const Profile = () => {
   console.log(localStorage.getItem('username'))
 
   useEffect(() =>{
-    if(!user) {
+    if(user === false) {
       navigate('/login')
     }
   }, [user])

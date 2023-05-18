@@ -1,12 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const Character = ({ fullPortrait, displayName, displayIcon }) => {
+const Character = ({ uuid, fullPortrait, displayName, displayIcon }) => {
   return (
-    <>
+    <article>
+      <Link to={`/characters/${uuid}`}>
       <img src={fullPortrait} alt={displayName} className="personaje-img" />
-      <img src={displayIcon} />
+      </Link>
+      <img src={displayIcon} className="personaje-rol"/>
       <h4>{displayName}</h4>
-    </>
+
+    </article>
   );
 };
 

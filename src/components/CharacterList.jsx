@@ -10,7 +10,7 @@ const CharacterList = () => {
 
   const [characters, setCharacters] = useState([]);
   const [buscarCharacters, setBuscarCharacters] = useState([])
-
+  const [ favorites, setFavorites ] = useState([])
   useEffect(() => {
     try {
       fetchCharacters(url).then((response) => {
@@ -60,14 +60,13 @@ const CharacterList = () => {
         {characters != null ? (
           characters.map((character) => (
             <article key={character.uuid} className="personaje">
-              <Link to={`/characters/${character.uuid}`}>
                 <Character
                   key={character.uuid}
+                  uuid={character.uuid}
                   fullPortrait={character.fullPortrait}
                   displayName={character.displayName}
                   displayIcon={character.role.displayIcon}
                 />
-              </Link>
             </article>
           ))
         ) : (
