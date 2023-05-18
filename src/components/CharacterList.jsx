@@ -49,7 +49,6 @@ const CharacterList = () => {
         onChange={handleChange}
         autoFocus
       ></input>
-      <button className="searchbar">O</button>
 
       <select name="roles" id="roles">
         <option value="Initiator">Initiator</option>
@@ -60,7 +59,7 @@ const CharacterList = () => {
       <section className="personajes">
         {characters != null ? (
           characters.map((character) => (
-            <div key={character.uuid}>
+            <article key={character.uuid} className="personaje">
               <Link to={`/characters/${character.uuid}`}>
                 <Character
                   key={character.uuid}
@@ -69,7 +68,7 @@ const CharacterList = () => {
                   displayIcon={character.role.displayIcon}
                 />
               </Link>
-            </div>
+            </article>
           ))
         ) : (
           <div>
@@ -77,7 +76,6 @@ const CharacterList = () => {
           </div>
         )}
       </section>
-      {/* {console.log(characters[1].displayName)} */}
     </>
   );
 };

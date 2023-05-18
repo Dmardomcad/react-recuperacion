@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../components/Button";
+import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
 
+  const { user, setUser} = UserContext
+  const navigate = useNavigate()
+  
   let myusername = (localStorage.getItem('username'))
   let userEmail = (localStorage.getItem('email'))
-
-  const handleLogout = () =>{
-    localStorage.clear()
-  }
+  let mobile = (localStorage.getItem('mobile'))
 
   console.log(localStorage.getItem('username'))
+
+  useEffect(() =>{
+    if(!user) {
+      navigate('/login')
+    }
+  }, [user])
 
   return (
     <>
@@ -26,7 +34,7 @@ const Profile = () => {
               <p>Email: {userEmail}</p>
             </li>
             <li>
-              <p>Edad: 33</p>
+              <p>Teléfono: {mobile}</p>
             </li>
             <li>
               <h5>Personajes Favoritos:</h5>
@@ -37,7 +45,7 @@ const Profile = () => {
           </ul>
         </article>
       </section>
-      <Button text='logout' onClick = {handleLogout()}/>
+      <Button text='logout'/>
     </>
   );
 };

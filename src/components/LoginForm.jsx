@@ -9,7 +9,6 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => console.log(data);
-  console.log(errors);
 
   return (
     <>
@@ -19,7 +18,7 @@ const LoginForm = () => {
           <input
             type="text"
             placeholder="Email"
-            {...login("email", {
+            {...register("email", {
               required: {
                 value: true,
                 message: "Se debe rellenar el campo",
@@ -40,7 +39,7 @@ const LoginForm = () => {
           <input
             type="password"
             placeholder="Password"
-            {...login("password", {
+            {...register("password", {
               required: {
                 value: true,
                 message: "Se debe rellenar el campo",

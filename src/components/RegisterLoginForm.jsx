@@ -9,6 +9,7 @@ const RegisterLoginForm = () => {
     username: '',
     email: '',
     password: '',
+    birthyear: '',
     terms: false
   }
 
@@ -27,18 +28,17 @@ const RegisterLoginForm = () => {
 
   const onSubmit = (data, e) => {
     e.preventDefault()
-    const { username, email, password, terms } = data
+    let { username, email, password, mobile, terms } = data
     window.localStorage.setItem('username', username)
     window.localStorage.setItem('email', email)
     window.localStorage.setItem('password', password)
+    window.localStorage.setItem('mobile', mobile)
     window.localStorage.setItem(terms, terms)
     setUser(true)
     console.log(JSON.stringify(data))
     console.log(user)
     navigate('/profile')
   }
-
-  console.log(errors);
 
   const { user, setUser} = useContext(UserContext)
   const { users, setUsers } = useState([])
@@ -119,6 +119,30 @@ const RegisterLoginForm = () => {
             <p className="error">{errors.password.message}</p>
           )}
 
+          <label htmlFor="birthyear">Teléfono móvil: </label>
+          <input
+            type="tel"
+            placeholder="Teléfono móvil "
+            {...register("mobile", {
+              required: {
+                value: true,
+                message: "Se debe rellenar el campo",
+              },
+              maxLength: {
+                value: 9,
+                message: "El número de teléfono debe tener como máximo 9 caracteres.",
+              },
+              minLength: {
+                value: 9,
+                message:
+                  "El año de nacimiento debe tener como mínimo 9 caracteres.",
+              },
+            })}
+          />
+          {errors.mobile && (
+            <p className="error">{errors.mobile.message}</p>
+          )}
+
           <label htmlFor="terms">Acepto los terminos y condiciones: </label>
           <input
             type="checkbox"
@@ -132,23 +156,6 @@ const RegisterLoginForm = () => {
           {errors.terms && (
             <p className="error">{errors.terms.message}</p>
           )}
-
-          {/*           <label htmlFor="repeat-password">Repeat Password:</label>
-          <input
-            type="password"
-            onChange={(e) => {
-              lastName.onChange(e);
-              setError("repeat-password", {
-                types: {
-                  required: "This is required",
-                  minLength: "This is minLength",
-                },
-              });
-            }}
-          />
-          {errors.password && errors.password.types && (
-            <span>{errors.password.types.required}</span>
-          )} */}
 
           <Button text="Registrarse" type='submit'/>
         </form>
