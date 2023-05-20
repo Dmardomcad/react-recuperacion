@@ -8,9 +8,6 @@ import Register from "../pages/Register";
 import NotFound from "../pages/NotFound";
 import LayoutPublic from "../layouts/LayoutPublic";
 import CharacterInfo from "../pages/CharacterInfo";
-import CharacterCard from "../components/Character";
-import LoginForm from "../components/LoginForm";
-import Character from '../components/Character';
 
 export const router = createBrowserRouter([
   {

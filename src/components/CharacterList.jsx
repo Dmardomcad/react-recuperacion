@@ -2,15 +2,19 @@ import React from "react";
 import { useState, useEffect } from "react";
 import fetchCharacters from "../helpers/useApi";
 import Spinner from "./Spinner";
-import { Link } from "react-router-dom";
 import Character from "./Character";
 
 const CharacterList = () => {
   const url = "https://valorant-api.com/v1/agents?isPlayableCharacter=true";
 
+  const initialState = JSON.parse(localStorage.getItem('favorites')) || []
+
   const [characters, setCharacters] = useState([]);
   const [buscarCharacters, setBuscarCharacters] = useState([])
   const [ favorites, setFavorites ] = useState([])
+  
+  //updateLocalStorage(favorites)
+
   useEffect(() => {
     try {
       fetchCharacters(url).then((response) => {
@@ -24,7 +28,23 @@ const CharacterList = () => {
   //console.log(characters)
   const [search, setSearch] = useState("");
   //console.log(characters.data);
-  
+
+  const updateLocalStorage = (favorites) => {
+    localStorage.setItem('favorites', JSON.stringify(favorites))
+  }
+
+
+  const handleFav = (e, uuid, character) => {
+    e.preventDefault()
+    console.log(`guardando en favoritos personaje con id ${uuid}`)
+    setFavorites([
+      ...favorites, character
+      ]
+    )
+  }
+  console.log(favorites)
+
+
   const handleChange = (e) => {
     setSearch(e.target.value)
     console.log(e.target.value)
@@ -50,10 +70,10 @@ const CharacterList = () => {
         autoFocus
       ></input>
 
-      <select name="roles" id="roles">
+{/*       <select name="roles" id="roles">
         <option value="Initiator">Initiator</option>
         <option value="Otra">Otra</option>
-      </select>
+      </select> */}
 
 
       <section className="personajes">
@@ -67,6 +87,7 @@ const CharacterList = () => {
                   displayName={character.displayName}
                   displayIcon={character.role.displayIcon}
                 />
+                <button onClick={(e) => handleFav(e, character.uuid, character)}>Añadir a favoritos</button>
             </article>
           ))
         ) : (

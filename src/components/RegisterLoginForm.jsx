@@ -10,11 +10,15 @@ const RegisterLoginForm = () => {
     email: '',
     password: '',
     birthyear: '',
+    mobile: '',
     terms: false
   }
-
-  const { username, setUserName} = useState('')
-
+  
+  const { user, setUser} = useContext(UserContext)
+  const [ users, setUsers] = useState(localStorage.getItem('registeredUsers') ? JSON.parse(localStorage.getItem('registeredUsers')) : []) 
+  // ^ if localstorage contains registered user then parse it and get the data, if not, initializate into an empty array ^
+  const navigate = useNavigate()
+  
 
   const {
     register,
@@ -25,25 +29,22 @@ const RegisterLoginForm = () => {
   ); // "onBlur" is another good option
   
 
-
-  const onSubmit = (data, e) => {
-    e.preventDefault()
-    let { username, email, password, mobile, terms } = data
-    window.localStorage.setItem('username', username)
-    window.localStorage.setItem('email', email)
-    window.localStorage.setItem('password', password)
-    window.localStorage.setItem('mobile', mobile)
-    window.localStorage.setItem(terms, terms)
+  const onSubmit = (e) => { 
+    const data = { username: e.username ,
+                   email: e.email,
+                   password: e.password,
+                   mobile: e.mobile, 
+                   terms: e.terms }
+    setUsers(JSON.parse(localStorage.getItem("registeredUsers")))
+    users.push(data) // might be better to use spread operator??? 
+    localStorage.setItem("registeredUsers", JSON.stringify(users))
     setUser(true)
     console.log(JSON.stringify(data))
     console.log(user)
+    console.log(users)
     navigate('/profile')
   }
 
-  const { user, setUser} = useContext(UserContext)
-  const { users, setUsers } = useState([])
-
-  const navigate = useNavigate()
   // Context testing
   console.log(`saludo desde el login ${useContext(UserContext)}`)
 
@@ -57,7 +58,6 @@ const RegisterLoginForm = () => {
             placeholder="Username"
             name='username'
             id='username'
-            onChange={e => setUserName(e.target.value)}
             {...register("username", {
               required: {
                 value: true,
@@ -77,6 +77,9 @@ const RegisterLoginForm = () => {
           <input
             type="text"
             placeholder="Email"
+            name = 'email'
+            id = 'email'
+            onChange={e => setUserName(e.target.value)}
             {...register("email", {
               required: {
                 value: true,
@@ -98,6 +101,8 @@ const RegisterLoginForm = () => {
           <input
             type="password"
             placeholder="Password"
+            name = "password"
+            id ="password"
             {...register("password", {
               required: {
                 value: true,
@@ -123,6 +128,8 @@ const RegisterLoginForm = () => {
           <input
             type="tel"
             placeholder="Teléfono móvil "
+            name = "mobile"
+            id = "mobile"
             {...register("mobile", {
               required: {
                 value: true,
@@ -146,6 +153,8 @@ const RegisterLoginForm = () => {
           <label htmlFor="terms">Acepto los terminos y condiciones: </label>
           <input
             type="checkbox"
+            name = "terms"
+            id = "terms"
             {...register("terms", {
               required: {
                 value: true,

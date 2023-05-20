@@ -1,18 +1,16 @@
 import React, { useEffect } from "react";
 import Button from "../components/Button";
-import { UserContext } from "../context/UserContext";
+import { UserContext} from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
 
   const { user, setUser} = UserContext
   const navigate = useNavigate()
-  
-  let myusername = (localStorage.getItem('username'))
-  let userEmail = (localStorage.getItem('email'))
-  let mobile = (localStorage.getItem('mobile'))
+  const logedUserData = JSON.parse(localStorage.getItem('logedUser'))
+  const logedUser = logedUserData[0]
 
-  console.log(localStorage.getItem('username'))
+  console.log(logedUserData)
 
   useEffect(() =>{
     if(user === false) {
@@ -28,13 +26,13 @@ const Profile = () => {
           <img src="/src/assets/img/profile-stock.jpg" alt="placeholder"></img>
           <ul>
             <li>
-              <p>Nickname: {myusername}</p>
+              <p>Nickname: {logedUser.username}</p>
             </li>
             <li>
-              <p>Email: {userEmail}</p>
+              <p>Email: {logedUser.email}</p>
             </li>
             <li>
-              <p>Teléfono: {mobile}</p>
+              <p>Teléfono: {logedUser.mobile}</p>
             </li>
             <li>
               <h5>Personajes Favoritos:</h5>

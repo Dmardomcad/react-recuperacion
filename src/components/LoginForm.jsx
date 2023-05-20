@@ -1,23 +1,54 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "./Button";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 const LoginForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => console.log(data);
+  } = useForm( {mode:"onChange"});
+
+  const { user, setUser } = useContext(UserContext)
+  const navigate = useNavigate()
+  const [logedUser, setLogedUser] = useState([])
+  const [data, setData ] = useState((localStorage.getItem('registeredUsers') ? JSON.parse(localStorage.getItem('registeredUsers')) : []))  
+
+
+
+
+  const onSubmit = (e) => {
+    const loginData  = {
+      email: e.email,
+      password: e.password
+    }
+
+    data.map( userData =>{
+      if(loginData.email === userData.email && loginData.password === userData.password){
+        setLogedUser(userData)
+        logedUser.push(userData)
+        window.localStorage.setItem('logedUser', JSON.stringify(logedUser))
+        setUser(true)
+        navigate('/profile')
+      }
+      else {
+        console.log('error usuario no encontrado')
+      }
+    })
+  }
 
   return (
     <>
-      <section className="login">
-        <form className="formulario-login" onSubmit={handleSubmit(onSubmit)}>
+      <section className="registro">
+        <form className="formulario-registro"  onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="Email">Email: </label>
           <input
-            type="text"
-            placeholder="Email"
+            type ="text"
+            placeholder ="Email"
+            name = 'email'
+            id = 'id'
             {...register("email", {
               required: {
                 value: true,
@@ -37,8 +68,10 @@ const LoginForm = () => {
 
           <label htmlFor="Password">Password: </label>
           <input
-            type="password"
-            placeholder="Password"
+            type = "password"
+            placeholder = "Password"
+            name = 'password'
+            id = 'password'
             {...register("password", {
               required: {
                 value: true,
@@ -59,23 +92,6 @@ const LoginForm = () => {
           {errors.password && (
             <p className="error">{errors.password.message}</p>
           )}
-
-          {/*           <label htmlFor="repeat-password">Repeat Password:</label>
-          <input
-            type="password"
-            onChange={(e) => {
-              lastName.onChange(e);
-              setError("repeat-password", {
-                types: {
-                  required: "This is required",
-                  minLength: "This is minLength",
-                },
-              });
-            }}
-          />
-          {errors.password && errors.password.types && (
-            <span>{errors.password.types.required}</span>
-          )} */}
 
           <Button text="Login" />
         </form>
