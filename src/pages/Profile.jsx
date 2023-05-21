@@ -1,29 +1,35 @@
 import React, { useEffect } from "react";
 import Button from "../components/Button";
-import { UserContext} from "../context/UserContext";
+import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../components/Spinner";
+import Character from "../components/Character";
 
 const Profile = () => {
+  const { user, setUser } = UserContext;
+  const navigate = useNavigate();
+  const logedUserData = JSON.parse(localStorage.getItem("logedUser"));
+  const logedUser = logedUserData[0];
 
-  const { user, setUser} = UserContext
-  const navigate = useNavigate()
-  const logedUserData = JSON.parse(localStorage.getItem('logedUser'))
-  const logedUser = logedUserData[0]
+  const email = logedUserData[0].email;
+  const favoritedKey = `favorites_from_${email}`;
 
-  console.log(logedUserData)
+  const favoritedCharacters = JSON.parse(localStorage.getItem(favoritedKey))
+    ? JSON.parse(localStorage.getItem(favoritedKey))
+    : [];
+  console.log(favoritedCharacters);
 
-  useEffect(() =>{
-    if(user === false) {
-      navigate('/login')
+  useEffect(() => {
+    if (user === false) {
+      navigate("/login");
     }
-  }, [user])
+  }, [user]);
 
   return (
     <>
       <section className="perfil-usuario">
         <h3>PERFIL DE USUARIO</h3>
         <article className="datos-usuario">
-          <img src="/src/assets/img/profile-stock.jpg" alt="placeholder"></img>
           <ul>
             <li>
               <p>Nickname: {logedUser.username}</p>
@@ -38,12 +44,35 @@ const Profile = () => {
               <h5>Personajes Favoritos:</h5>
             </li>
             <div>
-              Favoritos placeholder
+              <div>
+                <section className="personajes">
+                  {favoritedCharacters != null ? (
+                    favoritedCharacters.map((favoriteCharacter) => (
+                      <article
+                        key={favoriteCharacter.uuid}
+                        className="personaje"
+                      >
+                        <Character
+                          key={favoriteCharacter.uuid}
+                          uuid={favoriteCharacter.uuid}
+                          fullPortrait={favoriteCharacter.fullPortrait}
+                          displayName={favoriteCharacter.displayName}
+                          displayIcon={favoriteCharacter.role.displayIcon}
+                        />
+                      </article>
+                    ))
+                  ) : (
+                    <div>
+                      <Spinner />
+                    </div>
+                  )}
+                </section>
+              </div>
             </div>
           </ul>
         </article>
       </section>
-      <Button text='logout'/>
+      <Button text="logout" />
     </>
   );
 };

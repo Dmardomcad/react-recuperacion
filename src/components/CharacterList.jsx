@@ -1,18 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import fetchCharacters from "../helpers/useApi";
 import Spinner from "./Spinner";
 import Character from "./Character";
+import { UserContext } from "../context/UserContext";
 
 const CharacterList = () => {
   const url = "https://valorant-api.com/v1/agents?isPlayableCharacter=true";
 
   const initialState = JSON.parse(localStorage.getItem('favorites')) || []
 
+  const { user, setUser } = useContext(UserContext)
   const [characters, setCharacters] = useState([]);
   const [buscarCharacters, setBuscarCharacters] = useState([])
   const [ favorites, setFavorites ] = useState([])
   
+  let activeUser = ''
+  if(user === true ) {
+    const logedUser = JSON.parse(localStorage.getItem('logedUser'))
+    const email = logedUser[0].email
+    activeUser = `favorites_from_${email}`
+  }
+  const userFavorites = localStorage.getItem(activeUser)
+   ? JSON.parse(localStorage.getItem(activeUser))
+   : []
+
   //updateLocalStorage(favorites)
 
   useEffect(() => {
@@ -37,10 +49,9 @@ const CharacterList = () => {
   const handleFav = (e, uuid, character) => {
     e.preventDefault()
     console.log(`guardando en favoritos personaje con id ${uuid}`)
-    setFavorites([
-      ...favorites, character
-      ]
-    )
+  const updatedFavorites = [...userFavorites, character];
+  setFavorites(updatedFavorites);
+  localStorage.setItem(activeUser, JSON.stringify(updatedFavorites));
   }
   console.log(favorites)
 
@@ -69,12 +80,6 @@ const CharacterList = () => {
         onChange={handleChange}
         autoFocus
       ></input>
-
-{/*       <select name="roles" id="roles">
-        <option value="Initiator">Initiator</option>
-        <option value="Otra">Otra</option>
-      </select> */}
-
 
       <section className="personajes">
         {characters != null ? (
