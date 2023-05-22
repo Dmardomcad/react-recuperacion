@@ -1,11 +1,18 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import Button from "./Button";
 
 const Navbar = () => {
   console.log(useContext(UserContext))
   const {user, setUser} = useContext(UserContext)
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    localStorage.removeItem("logedUser")
+    setUser(false)
+    navigate("/")
+  }
 
   return (
     <>
@@ -26,6 +33,7 @@ const Navbar = () => {
             <NavLink to="/profile" className="nav-link">
               Profile
             </NavLink>
+              <button onClick={handleLogout} className="btn-registro">Logout</button>
           </>
             ) : 
           ( 

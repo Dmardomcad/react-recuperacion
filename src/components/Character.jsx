@@ -5,11 +5,10 @@ const Character = ({ uuid, fullPortrait, displayName, displayIcon }) => {
   return (
     <article>
       <Link to={`/characters/${uuid}`}>
-      <img src={fullPortrait} alt={displayName} className="personaje-img" />
+        <img src={fullPortrait} alt={displayName} className="personaje-img" />
       </Link>
-      <img src={displayIcon} className="personaje-rol"/>
+      <img src={displayIcon} className="personaje-rol" />
       <h4>{displayName}</h4>
-
     </article>
   );
 };

@@ -5,18 +5,17 @@ import Spinner from "./Spinner";
 import Character from "./Character";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import FavHeart from "./FavHeart";
+import NoFavHeart from "./NoFavHeart";
 
 const CharacterList = () => {
   const url = "https://valorant-api.com/v1/agents?isPlayableCharacter=true";
-
-  //const initialState = JSON.parse(localStorage.getItem("favorites")) || [];
 
   const { user, setUser } = useContext(UserContext);
   const [characters, setCharacters] = useState([]);
   const [buscarCharacters, setBuscarCharacters] = useState([]);
   const [favorites, setFavorites] = useState([]);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   let activeUser = "";
   if (user === true) {
@@ -24,30 +23,25 @@ const CharacterList = () => {
     const email = logedUser[0].email;
     activeUser = `favorites_from_${email}`;
   }
-  /*   const userFavorites = localStorage.getItem(activeUser)
-    ? JSON.parse(localStorage.getItem(activeUser))
-    : []; */
-
-  //updateLocalStorage(favorites)
 
   useEffect(() => {
-      fetchCharacters(url).then((response) => {
-        setCharacters(response);
-        setBuscarCharacters(response);
-      });
+    fetchCharacters(url).then((response) => {
+      setCharacters(response);
+      setBuscarCharacters(response);
+      const storedFavorites = JSON.parse(localStorage.getItem(activeUser));
+      if (storedFavorites) {
+        setFavorites(storedFavorites);
+      }
+    });
   }, []);
   //console.log(characters)
   const [search, setSearch] = useState("");
   //console.log(characters.data);
 
-  /*   const updateLocalStorage = (favorites) => {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }; */
-
   const handleFav = (e, uuid, character) => {
     if (!user) {
-      navigate('/register')
-      return
+      navigate("/register");
+      return;
     }
     e.preventDefault();
     console.log(`guardando en favoritos personaje con id ${uuid}`);
@@ -109,12 +103,17 @@ const CharacterList = () => {
                 displayName={character.displayName}
                 displayIcon={character.role.displayIcon}
               />
-              <button onClick={(e) => handleFav(e, character.uuid, character)}>
+              <button
+                className="btn-like"
+                onClick={(e) => handleFav(e, character.uuid, character)}
+              >
                 {favorites.some(
                   (favCharacter) => favCharacter.uuid === character.uuid
-                )
-                  ? "Quitar de favoritos"
-                  : "Añadir a favoritos"}
+                ) ? (
+                  <FavHeart />
+                ) : (
+                  <NoFavHeart />
+                )}
               </button>
             </article>
           ))

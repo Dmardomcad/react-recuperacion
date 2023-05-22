@@ -9,9 +9,9 @@ const Profile = () => {
   const { user, setUser } = UserContext;
   const navigate = useNavigate();
   const logedUserData = JSON.parse(localStorage.getItem("logedUser"));
-  const logedUser = logedUserData[0];
+  const logedUser = logedUserData && logedUserData[0];
 
-  const email = logedUserData[0].email;
+  const email = logedUser && logedUserData[0].email;
   const favoritedKey = `favorites_from_${email}`;
 
   const favoritedCharacters = JSON.parse(localStorage.getItem(favoritedKey))
@@ -20,7 +20,7 @@ const Profile = () => {
   console.log(favoritedCharacters);
 
   useEffect(() => {
-    if (user === false) {
+    if (user === false || !logedUser) {
       navigate("/login");
     }
   }, [user]);
@@ -32,13 +32,13 @@ const Profile = () => {
         <article className="datos-usuario">
           <ul>
             <li>
-              <p>Nickname: {logedUser.username}</p>
+              <p>Nickname: {logedUser && logedUser.username}</p>
             </li>
             <li>
-              <p>Email: {logedUser.email}</p>
+              <p>Email: {logedUser && logedUser.email}</p>
             </li>
             <li>
-              <p>Teléfono: {logedUser.mobile}</p>
+              <p>Teléfono: {logedUser && logedUser.mobile}</p>
             </li>
             <li>
               <h5>Personajes Favoritos:</h5>
