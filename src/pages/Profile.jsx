@@ -17,7 +17,6 @@ const Profile = () => {
   const favoritedCharacters = JSON.parse(localStorage.getItem(favoritedKey))
     ? JSON.parse(localStorage.getItem(favoritedKey))
     : [];
-  console.log(favoritedCharacters);
 
   useEffect(() => {
     if (user === false || !logedUser) {
@@ -43,29 +42,26 @@ const Profile = () => {
             <li>
               <h5>Personajes Favoritos:</h5>
             </li>
-              <div>
-                <section className="personajes">
-                  {favoritedCharacters != null ? (
-                    favoritedCharacters.map((favoriteCharacter) => (
-                      <article
+            <div>
+              <section className="personajes">
+                {favoritedCharacters != null ? (
+                  favoritedCharacters.map((favoriteCharacter) => (
+                    <article key={favoriteCharacter.uuid} className="personaje">
+                      <Character
                         key={favoriteCharacter.uuid}
-                        className="personaje"
-                      >
-                        <Character
-                          key={favoriteCharacter.uuid}
-                          uuid={favoriteCharacter.uuid}
-                          fullPortrait={favoriteCharacter.fullPortrait}
-                          displayName={favoriteCharacter.displayName}
-                          displayIcon={favoriteCharacter.role.displayIcon}
-                        />
-                      </article>
-                    ))
-                  ) : (
-                    <div>
-                      <Spinner />
-                    </div>
-                  )}
-                </section>
+                        uuid={favoriteCharacter.uuid}
+                        fullPortrait={favoriteCharacter.fullPortrait}
+                        displayName={favoriteCharacter.displayName}
+                        displayIcon={favoriteCharacter.role.displayIcon}
+                      />
+                    </article>
+                  ))
+                ) : (
+                  <div>
+                    <Spinner />
+                  </div>
+                )}
+              </section>
             </div>
           </ul>
         </article>

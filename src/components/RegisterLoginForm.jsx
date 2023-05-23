@@ -6,45 +6,41 @@ import { useNavigate } from "react-router-dom";
 
 const RegisterLoginForm = () => {
   const initialValues = {
-    username: '',
-    email: '',
-    password: '',
-    mobile: '',
-    terms: false
-  }
-  
-  const { user, setUser} = useContext(UserContext)
-  const [ users, setUsers] = useState(localStorage.getItem('registeredUsers') ? JSON.parse(localStorage.getItem('registeredUsers')) : []) 
+    username: "",
+    email: "",
+    password: "",
+    mobile: "",
+    terms: false,
+  };
+
+  const { user, setUser } = useContext(UserContext);
+  const [users, setUsers] = useState(
+    localStorage.getItem("registeredUsers")
+      ? JSON.parse(localStorage.getItem("registeredUsers"))
+      : []
+  );
   // ^ if localstorage contains registered user then parse it and get the data, if not, initializate into an empty array ^
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm( {mode:"onChange"},
-    {defaultValues: initialValues}
-  ); // "onBlur" is another good option
-  
+  } = useForm({ mode: "onChange" }, { defaultValues: initialValues }); // "onBlur" is another good option
 
-  const onSubmit = (e) => { 
-    const data = { username: e.username ,
-                   email: e.email,
-                   password: e.password,
-                   mobile: e.mobile, 
-                   terms: e.terms }
-    setUsers(JSON.parse(localStorage.getItem("registeredUsers")))
-    users.push(data) // might be better to use spread operator??? 
-    localStorage.setItem("registeredUsers", JSON.stringify(users))
-    console.log(JSON.stringify(data))
-    console.log(user)
-    console.log(users)
-    navigate('/profile')
-  }
-
-  // Context testing
-  console.log(`saludo desde el login ${useContext(UserContext)}`)
+  const onSubmit = (e) => {
+    const data = {
+      username: e.username,
+      email: e.email,
+      password: e.password,
+      mobile: e.mobile,
+      terms: e.terms,
+    };
+    setUsers(JSON.parse(localStorage.getItem("registeredUsers")));
+    users.push(data); // might be better to use spread operator???
+    localStorage.setItem("registeredUsers", JSON.stringify(users));
+    navigate("/profile");
+  };
 
   return (
     <>
@@ -54,16 +50,16 @@ const RegisterLoginForm = () => {
           <input
             type="text"
             placeholder="Username"
-            name='username'
-            id='username'
+            name="username"
+            id="username"
             {...register("username", {
               required: {
                 value: true,
-                message: "Se debe rellenar el campo",
+                message: "Field must be filled.",
               },
               maxLength: {
                 value: 15,
-                message: "Username debe tener como máximo 15 caracteres",
+                message: "Username must have a maximum of 15 characters.",
               },
             })}
           />
@@ -75,13 +71,13 @@ const RegisterLoginForm = () => {
           <input
             type="text"
             placeholder="Email"
-            name = 'email'
-            id = 'email'
-            onChange={e => setUserName(e.target.value)}
+            name="email"
+            id="email"
+            onChange={(e) => setUserName(e.target.value)}
             {...register("email", {
               required: {
                 value: true,
-                message: "Se debe rellenar el campo",
+                message: "Field must be filled.",
               },
               maxLength: {
                 value: 30,
@@ -99,64 +95,61 @@ const RegisterLoginForm = () => {
           <input
             type="password"
             placeholder="Password"
-            name = "password"
-            id ="password"
+            name="password"
+            id="password"
             {...register("password", {
               required: {
                 value: true,
-                message: "Se debe rellenar el campo",
+                message: "Field must be filled.",
               },
               maxLength: {
                 value: 30,
-                message: "La password puede tener como máximo 25 caracteres.",
+                message: "The password can have a maximum of 25 characters.",
               },
               pattern: {
                 value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-                message: 'La password debe tener como mínimo 8 caracteres y al menos una letra y un número.'
-              }
+                message:
+                  "Password must be at least 8 characters and have at least a letter and a number.",
+              },
             })}
           />
           {errors.password && (
             <p className="error">{errors.password.message}</p>
           )}
 
-          <label htmlFor="mobile">Teléfono móvil: </label>
+          <label htmlFor="mobile">Mobile phone: </label>
           <input
             type="tel"
-            placeholder="Teléfono móvil "
-            name = "mobile"
-            id = "mobile"
+            placeholder="Mobile phone"
+            name="mobile"
+            id="mobile"
             {...register("mobile", {
               required: {
                 value: true,
-                message: "Se debe rellenar el campo",
+                message: "Field must be filled.",
               },
               pattern: {
                 value: /^\d{9}$/,
-                message: "Debe ser un número de 9 dígitos."
-              }
+                message: "Must be a number of 9 digits.",
+              },
             })}
           />
-          {errors.mobile && (
-            <p className="error">{errors.mobile.message}</p>
-          )}
+          {errors.mobile && <p className="error">{errors.mobile.message}</p>}
 
-          <label htmlFor="terms">Acepto los terminos y condiciones: </label>
+          <label htmlFor="terms">I accept terms & conditions: </label>
           <input
             type="checkbox"
-            name = "terms"
-            id = "terms"
+            name="terms"
+            id="terms"
             {...register("terms", {
               required: {
                 value: true,
-                message: "Se deben aceptar los terminos y condiciones",
-              }
+                message: "Terms and conditions must be accepted.",
+              },
             })}
           />
-          {errors.terms && (
-            <p className="error">{errors.terms.message}</p>
-          )}
-          <Button text="Registrarse" type='submit'/>
+          {errors.terms && <p className="error">{errors.terms.message}</p>}
+          <Button text="Registrarse" type="submit" />
         </form>
       </section>
     </>
