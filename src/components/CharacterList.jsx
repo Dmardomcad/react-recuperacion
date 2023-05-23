@@ -34,9 +34,7 @@ const CharacterList = () => {
       }
     });
   }, []);
-  //console.log(characters)
   const [search, setSearch] = useState("");
-  //console.log(characters.data);
 
   const handleFav = (e, uuid, character) => {
     if (!user) {
@@ -44,7 +42,6 @@ const CharacterList = () => {
       return;
     }
     e.preventDefault();
-    console.log(`guardando en favoritos personaje con id ${uuid}`);
     const updatedFavorites = [...favorites];
 
     const index = updatedFavorites.findIndex(
@@ -60,11 +57,9 @@ const CharacterList = () => {
     setFavorites(updatedFavorites);
     localStorage.setItem(activeUser, JSON.stringify(updatedFavorites));
   };
-  //console.log(favorites);
 
   const handleChange = (e) => {
     setSearch(e.target.value);
-    console.log(e.target.value);
     filtrar(e.target.value);
   };
 
