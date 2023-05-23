@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar'
 
 const LayoutPublic = () => {
   return (
-    <div>
+    <>
         <Navbar />
         <main>
           <Outlet />
@@ -13,7 +13,7 @@ const LayoutPublic = () => {
         <footer>
           <Footer />
         </footer>
-    </div>
+    </>
   )
 }
 

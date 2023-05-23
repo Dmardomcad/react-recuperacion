@@ -9,7 +9,6 @@ const RegisterLoginForm = () => {
     username: '',
     email: '',
     password: '',
-    birthyear: '',
     mobile: '',
     terms: false
   }
@@ -38,7 +37,6 @@ const RegisterLoginForm = () => {
     setUsers(JSON.parse(localStorage.getItem("registeredUsers")))
     users.push(data) // might be better to use spread operator??? 
     localStorage.setItem("registeredUsers", JSON.stringify(users))
-    setUser(true)
     console.log(JSON.stringify(data))
     console.log(user)
     console.log(users)
@@ -90,8 +88,8 @@ const RegisterLoginForm = () => {
                 message: "El email puede tener como máximo 30 caracteres.",
               },
               pattern: {
-                value: /^\S+@\S+$/i,
-                message: "Debe ser un email",
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Debe ser un email valido",
               },
             })}
           />
@@ -112,19 +110,17 @@ const RegisterLoginForm = () => {
                 value: 30,
                 message: "La password puede tener como máximo 25 caracteres.",
               },
-              minLength: {
-                value: 8,
-                pattern: "^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$",
-                message:
-                  "La password debe tener como mínimo 8 caracteres y al menos una letra y un número.",
-              },
+              pattern: {
+                value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                message: 'La password debe tener como mínimo 8 caracteres y al menos una letra y un número.'
+              }
             })}
           />
           {errors.password && (
             <p className="error">{errors.password.message}</p>
           )}
 
-          <label htmlFor="birthyear">Teléfono móvil: </label>
+          <label htmlFor="mobile">Teléfono móvil: </label>
           <input
             type="tel"
             placeholder="Teléfono móvil "
@@ -135,15 +131,10 @@ const RegisterLoginForm = () => {
                 value: true,
                 message: "Se debe rellenar el campo",
               },
-              maxLength: {
-                value: 9,
-                message: "El número de teléfono debe tener como máximo 9 caracteres.",
-              },
-              minLength: {
-                value: 9,
-                message:
-                  "El año de nacimiento debe tener como mínimo 9 caracteres.",
-              },
+              pattern: {
+                value: /^\d{9}$/,
+                message: "Debe ser un número de 9 dígitos."
+              }
             })}
           />
           {errors.mobile && (
@@ -165,7 +156,6 @@ const RegisterLoginForm = () => {
           {errors.terms && (
             <p className="error">{errors.terms.message}</p>
           )}
-
           <Button text="Registrarse" type='submit'/>
         </form>
       </section>

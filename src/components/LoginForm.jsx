@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "./Button";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
 const LoginForm = () => {
@@ -59,8 +59,8 @@ const LoginForm = () => {
                 message: "El email puede tener como máximo 30 caracteres.",
               },
               pattern: {
-                value: /^\S+@\S+$/i,
-                message: "Debe ser un email",
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Debe ser un email valido",
               },
             })}
           />
@@ -78,21 +78,20 @@ const LoginForm = () => {
                 message: "Se debe rellenar el campo",
               },
               maxLength: {
-                value: 30,
+                value: 25,
                 message: "La password puede tener como máximo 25 caracteres.",
               },
-              minLength: {
-                value: 8,
-                pattern: "^(?=.*[A-Za-z])(?=.*d)[A-Za-zd]{8,}$",
-                message:
-                  "La password debe tener como mínimo 8 caracteres y al menos una letra y un número.",
-              },
+              pattern: {
+                value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                message: 'La password debe tener como mínimo 8 caracteres y al menos una letra y un número.'
+              }
             })}
           />
           {errors.password && (
             <p className="error">{errors.password.message}</p>
           )}
-
+          
+          <NavLink to="/register"><p>¿No tienes cuenta?...</p></NavLink>
           <Button text="Login" />
         </form>
       </section>

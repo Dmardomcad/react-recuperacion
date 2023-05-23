@@ -26,9 +26,14 @@ const CharacterInfo = () => {
   
   return (
     <>
-      <img src={character.fullPortrait} alt="portrait" />
-      <div> descripcion: {character.description}</div>
-      <div>icono: {character.displayName}</div>
+    <h2 className='character-displayname'>{character.displayName}</h2>
+    <section className='info-personaje'>
+      <img className='info-personaje-img'src={character.fullPortrait} alt="portrait" />
+      <article className='historia-personaje'>
+        <h3> Description:</h3>
+        <p> {character.description} </p>
+      </article>
+    </section>
     </>
   )
 }

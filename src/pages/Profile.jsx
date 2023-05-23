@@ -43,7 +43,6 @@ const Profile = () => {
             <li>
               <h5>Personajes Favoritos:</h5>
             </li>
-            <div>
               <div>
                 <section className="personajes">
                   {favoritedCharacters != null ? (
@@ -67,12 +66,10 @@ const Profile = () => {
                     </div>
                   )}
                 </section>
-              </div>
             </div>
           </ul>
         </article>
       </section>
-      <Button text="logout" />
     </>
   );
 };

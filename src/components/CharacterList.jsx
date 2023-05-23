@@ -60,7 +60,7 @@ const CharacterList = () => {
     setFavorites(updatedFavorites);
     localStorage.setItem(activeUser, JSON.stringify(updatedFavorites));
   };
-  console.log(favorites);
+  //console.log(favorites);
 
   const handleChange = (e) => {
     setSearch(e.target.value);
