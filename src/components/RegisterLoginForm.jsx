@@ -53,6 +53,10 @@ const RegisterLoginForm = () => {
             name="username"
             id="username"
             {...register("username", {
+              onChange: (e) => {
+                const trimmedValue = e.target.value.trim();
+                e.target.value = trimmedValue;
+              },
               required: {
                 value: true,
                 message: "Field must be filled.",

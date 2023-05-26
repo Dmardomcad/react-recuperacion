@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import Button from "../components/Button";
+import React, { useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import Character from "../components/Character";
+import FavHeart from "../components/FavHeart";
 
 const Profile = () => {
   const { user, setUser } = UserContext;
@@ -14,9 +14,20 @@ const Profile = () => {
   const email = logedUser && logedUserData[0].email;
   const favoritedKey = `favorites_from_${email}`;
 
-  const favoritedCharacters = JSON.parse(localStorage.getItem(favoritedKey))
-    ? JSON.parse(localStorage.getItem(favoritedKey))
-    : [];
+  const [favoritedCharacters, setFavoritedCharacters] = useState(
+    JSON.parse(localStorage.getItem(favoritedKey))
+      ? JSON.parse(localStorage.getItem(favoritedKey))
+      : []
+  );
+
+  const handleRemoveFavorite = (uuid) => {
+    const updatedFavorites = favoritedCharacters.filter(
+      (character) => character.uuid !== uuid
+    );
+
+    localStorage.setItem(favoritedKey, JSON.stringify(updatedFavorites));
+    setFavoritedCharacters(updatedFavorites);
+  };
 
   useEffect(() => {
     if (user === false || !logedUser) {
@@ -54,6 +65,14 @@ const Profile = () => {
                         displayName={favoriteCharacter.displayName}
                         displayIcon={favoriteCharacter.role.displayIcon}
                       />
+                      <button
+                        className="btn-like"
+                        onClick={() =>
+                          handleRemoveFavorite(favoriteCharacter.uuid)
+                        }
+                      >
+                        <FavHeart />
+                      </button>
                     </article>
                   ))
                 ) : (

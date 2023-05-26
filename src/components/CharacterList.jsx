@@ -7,6 +7,7 @@ import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import FavHeart from "./FavHeart";
 import NoFavHeart from "./NoFavHeart";
+import ScrollButton from "./ScrollButton";
 
 const CharacterList = () => {
   const url = "https://valorant-api.com/v1/agents?isPlayableCharacter=true";
@@ -118,6 +119,7 @@ const CharacterList = () => {
           </div>
         )}
       </section>
+      <ScrollButton />
     </>
   );
 };
