@@ -7,7 +7,7 @@ const NewsCard = ({ newsTitle, newsImage, newsText }) => {
         <h2>{newsTitle}</h2>
         <img
           className="news-img"
-          src={`src/assets/images/news/img-${newsImage}.png`}
+          src={`src/assets/images/img-${newsImage}.png`}
         ></img>
         <p>{newsText}</p>
       </article>
